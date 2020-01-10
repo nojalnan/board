@@ -3,74 +3,7 @@
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <title>board test</title>
 </head>
-
-<script type="text/javascript">
-$(function(){
-
-    $("#startDate").datepicker({
-			  showOn: "both",
-			  dateFormat: "yy-mm-dd",
-		      buttonImage: "/resources/images/calendar.gif",
-		      buttonImageOnly: true,
-		      buttonText: "Select date"
-		  });
-	
-    $("#endDate").datepicker({
-		  showOn: "both",
-		  dateFormat: "yy-mm-dd",
-	      buttonImage: "/resources/images/calendar.gif",
-	      buttonImageOnly: true,
-	      buttonText: "Select date"
-	  });
-});
-</script>
-
 <body>
-	<div class="container">
-   	<form class="form" id="searchVO" name="searchVO">
-		<table id="table" data-height="460"
-			class="table table-bordered table-hover">
-			<tbody>
-				<tr>
-					<th><label for="title">도서명</label></th>
-					<td>
-						<input type="text" id="biTitle" name="biTitle" value="${searchVO.biTitle}" class="w200" maxlength="20"/>
-					</td>
-					<th><label for="publisher">출판사</label></th>
-					<td>
-						<input type="text" id="publisher" name="biPublisher" value="${searchVO.biPublisher}" class="w200" maxlength="20"/>
-					</td>
-				</tr>
-				<tr>
-					<th><label for="writer">저자</label></th>
-					<td>
-						<input type="text" id="creUsr" name="creUsr" value="${searchVO.creUsr}" class="w200" maxlength="20"/>
-					</td>
-					<th><label for="creDat">조회기간</label></th>
-					<td>
-						<input type="text" id="startDate" name="startDate" value="${searchVO.startDate}" class="w200" maxlength="10"/>
- 						 ~ <input type="text" id="endDate" name="endDate" value="${searchVO.endDate}" class="w200" maxlength="10"/>
-					</td>
-				</tr>
-				<tr>
-					<th><label for="keyword">키워드</label></th>
-					<td>
-						<input type="text" id="keyword" name="keyword" value="${searchVO.keyword}" class="w200" maxlength="20"/>
-					</td>
-					<th><label for="isbn">ISBN</label></th>
-					<td>
-						<input type="text" id="isbn" name="isbn" value="${searchVO.isbn}" class="w200" maxlength="20"/>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="6" align="right"><button type="submit"
-						class="btn btn-primary" id="searchBtn">검색</button></td>
-				</tr>
-			</tbody>
-		</table>
-	</form>
-	</div>
-
 	<div class="container">
 		<c:out value="${total}" />
 		<table id="table" data-height="460"
@@ -89,16 +22,18 @@ $(function(){
 			<tbody>
 				<c:forEach var="board" items="${boardList}" varStatus="status">
 					<tr align="center">
-						<td>${board.biNum}</td>
-						<%-- <td><a data-binum="${board.biNum}"}>${board.biTitle}</a></td> --%>
-						<td>${board.biTitle}</a></td>
-						<td>${board.biPublisher}</td>
+						<td>${board..biNum}</td>
+						<td><a data-binum="${board.biNum}"}>${board.biTitle}</a></td>
+						<td>${board.biPwd}</td>
 						<td>${board.creUsr}</td>
-						<td>${board.keyword}</td>
-						<td>${board.isbn}</td>
 						<td>${board.creDat}</td>
+						<td></td>
+						<td></td>
 					</tr>
 				</c:forEach>
+				<tr>
+					<td colspan="7" align="right"><button class="btn btn-primary">글쓰기</button></td>
+				</tr>
 			</tbody>
 		</table>
 	</div>

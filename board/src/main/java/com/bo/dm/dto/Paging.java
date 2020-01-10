@@ -7,7 +7,7 @@ public class Paging {
 
 	private int nowPage = 1; // 현재 페이지 디폴트 1
 	private int totalCnt; //데이터 전체 수
-	private int rowCnt = 10; //한페이지에 보일 게시물 수 디폴트 10
+	private int rowCnt = 5; //한페이지에 보일 게시물 수 디폴트 10
 	private int blockCnt = 10; // 한페이지에 보일 페이지 수 디폴트 10
 	private int totalPage; // 총 페이지 수	
 	private int totalBlock; //총 블락 갯수

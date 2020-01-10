@@ -3,21 +3,16 @@ package com.bo.dm.dto;
 import org.springframework.stereotype.Component;
 
 @Component
-public class BoardInfo {
-	private Integer biNum;
+public class SearchVO {
 	private String biTitle;
 	private String biPublisher;
 	private String creUsr;
 	private String keyword;
 	private String isbn;
 	private String creDat;
+	private String startDate;
+	private String endDate;
 	
-	public Integer getBiNum() {
-		return biNum;
-	}
-	public void setBiNum(Integer biNum) {
-		this.biNum = biNum;
-	}
 	public String getBiTitle() {
 		return biTitle;
 	}
@@ -53,6 +48,18 @@ public class BoardInfo {
 	}
 	public void setCreDat(String creDat) {
 		this.creDat = creDat;
+	}
+	public String getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
 	}
 	
 }

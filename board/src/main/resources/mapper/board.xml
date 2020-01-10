@@ -5,55 +5,78 @@
 <!-- 
 drop table board_info;
 CREATE TABLE `board_info` (
-	`binum` INT(5) NOT NULL AUTO_INCREMENT,
-	`bititle` VARCHAR(255) NOT NULL,
-	`bicontent` TEXT NOT NULL,
-	`bipwd` VARCHAR(100) NOT NULL,
-	`creusr` VARCHAR(100) NOT NULL,
-	`credat` DATETIME NOT NULL,
-	PRIMARY KEY (`binum`)
+  `binum` int(5) NOT NULL AUTO_INCREMENT,
+  `bititle` varchar(255) NOT NULL,
+  `bipublisher` varchar(100) DEFAULT NULL,
+  `isbn` varchar(100) DEFAULT NULL,
+  `creusr` varchar(100) NOT NULL,
+  `credat` datetime NOT NULL,
+  `keyword` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`binum`)
 )
  -->
-	<delete id="deleteBoard" parameterType="Map" >
-		delete from board_info where binum = ${binum}
-	</delete>
-	
-	<select id="getBoard" resultType="BoardInfo" parameterType="_long">
-		select binum, bititle, bicontent, bipwd,creusr,credat from board_info
-		where binum = #{binum}
-	</select>
 	<select id="getBoardList" resultType="BoardInfo" parameterType="Map">
-		select binum, bititle, bicontent, bipwd,creusr,credat from board_info
+		select binum, bititle, bipublisher, keyword, isbn ,creusr, credat from board_info
 		where 1=1
 		<if test="binum!=null and binum!=''">
 			and binum = ${binum}
 		</if>
 		<if test="bititle!=null and bititle!=''">
-			and bititle like concat('%', ${bititle} , '%')
+			<!-- and bititle like concat('%', #{bititle} , '%') -->
+			and bititle = #{bititle}
 		</if>
-		<if test="bicontent != null and bicontent != ''">
-			and bicontent like concat('%', ${bicontent} , '%')
+		<if test="bipublisher != null and bipublisher != ''">
+			and bipublisher like concat('%', #{bipublisher} , '%')
 		</if>
-		<if test="credat != null and credat !=''">
-			and credat = ${binum}
+		<if test="keyword != null and keyword != ''">
+			and keyword like concat('%', #{keyword} , '%')
+		</if>
+		<if test="isbn != null and isbn != ''">
+			and isbn like concat('%', #{isbn} , '%')
+		</if>
+		<if test="creusr != null and creusr != ''">
+			and creusr like concat('%', #{creusr} , '%')
+		</if>
+		<if test="startDate != null and startDate !=''">
+			and credat >= #{startDate}
+		</if>
+		<if test="endDate != null and endDate !=''">
+			<![CDATA[and credat <= #{endDate}]]>
 		</if>
 		<if test="snum !=null and snum !=''">
 			Limit ${snum}, ${enum}
 		</if>
 	</select>
+	
 	<select id="getBoardTotalCount" resultType="Integer" parameterType="Map">
 		SELECT count(1) from board_info where 1=1
 		<if test="binum!=null and binum!=''">
 			and binum = ${binum}
 		</if>
 		<if test="bititle!=null and bititle!=''">
-			and bititle like concat('%', ${bititle} , '%')
+			and bititle like concat('%', #{bititle} , '%')
 		</if>
-		<if test="bicontent != null and bicontent != ''">
-			and bicontent like concat('%', ${bicontent} , '%')
+		<if test="bipublisher != null and bipublisher != ''">
+			and bipublisher like concat('%', #{bipublisher} , '%')
 		</if>
-		<if test="credat != null and credat !=''">
-			and credat = ${binum}
+		<if test="startDate != null and startDate !=''">
+			and credat >= #{startDate}
+		</if>
+		<if test="endDate != null and endDate !=''">
+			<![CDATA[and credat <= #{endDate}]]>
 		</if>
 	</select>
+	
+	<insert id="insertBoardHist">
+		INSERT INTO ckinfo.board_hist
+		( bititle, bipublisher, isbn, creusr, credat, keyword )
+			SELECT
+				bititle
+				, bipublisher
+				, isbn
+				, creusr
+				, credat
+				, keyword
+		FROM ckinfo.board_info;
+	</insert>
 </mapper>
